@@ -150,12 +150,16 @@ def manually_fill():
                     time = datetime.datetime.fromtimestamp(
                         ts).strftime('%H:%M:%S')
                     Hour, Minute, Second = time.split(":")
-                    Insert_data = "INSERT INTO " + DB_table_name + \
-                        " (ID,ENROLLMENT,NAME,DATE,TIME) VALUES (0, %s, %s, %s,%s)"
+                    # logging.warning('%s before you ', 'DB_table_name')
+                    Insert_data = "INSERT INTO " + DB_table_name  + \
+                        " (ID, ENROLLMENT, NAME, DATE, TIME) VALUES (0, %s, %s, %s, %s)"
+                    # INSERT INTO `science` (`ID`, `ENROLLMENT`, `NAME`, `DATE`, `TIME`) VALUES (NULL, '20', 'XYZ', '2024-03-24', '12:41:21');
                     VALUES = (str(ENROLLMENT), str(
                         STUDENT), str(Date), str(time))
                     try:
+                        
                         cursor.execute(Insert_data, VALUES)
+                        connection.commit()
                     except Exception as e:
                         print(e)
                     ENR_ENTRY.delete(first=0, last=22)
@@ -164,7 +168,7 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name = r'C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\Manually Attendance'+DB_table_name+'.csv'
+                csv_name = r'C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\Manually Attendance\\ '+DB_table_name+'.csv'
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow(
@@ -220,7 +224,7 @@ def manually_fill():
             def attf():
                 import subprocess
                 subprocess.Popen(
-                    r'explorer /select,"C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\Manually Attendance\-------Check atttendance-------"')
+                    r'explorer /select,"C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\Manually Attendance\"')
 
             attf = tk.Button(MFW,  text="Check Sheets", command=attf, fg="white", bg="black",
                              width=12, height=1, activebackground="white", font=('times', 14, ' bold '))
@@ -335,7 +339,7 @@ def take_img():
             Date = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
             Time = datetime.datetime.fromtimestamp(ts).strftime('%H:%M:%S')
             row = [Enrollment, Name, Date, Time]
-            with open('StudentDetails\StudentDetails.csv', 'a+') as csvFile:
+            with open('StudentDetails\\StudentDetails.csv', 'a+') as csvFile:
                 writer = csv.writer(csvFile, delimiter=',')
                 writer.writerow(row)
                 csvFile.close()
@@ -361,7 +365,7 @@ def subjectchoose():
             else:
                 recognizer = cv2.face.LBPHFaceRecognizer_create()  # cv2.createLBPHFaceRecognizer()
                 try:
-                    recognizer.read("TrainingImageLabel\Trainner.yml")
+                    recognizer.read("TrainingImageLabel\\Trainner.yml")
                 except:
                     e = 'Model not found,Please train model'
                     Notifica.configure(
@@ -370,7 +374,7 @@ def subjectchoose():
 
                 harcascadePath = "haarcascade_frontalface_default.xml"
                 faceCascade = cv2.CascadeClassifier(harcascadePath)
-                df = pd.read_csv("StudentDetails\StudentDetails.csv")
+                df = pd.read_csv("StudentDetails\\StudentDetails.csv")
                 cam = cv2.VideoCapture(0)
                 font = cv2.FONT_HERSHEY_SIMPLEX
                 col_names = ['Enrollment', 'Name', 'Date', 'Time']
@@ -428,8 +432,7 @@ def subjectchoose():
                 timeStamp = datetime.datetime.fromtimestamp(
                     ts).strftime('%H:%M:%S')
                 Hour, Minute, Second = timeStamp.split(":")
-                fileName = "Attendance/" + Subject + "_" + date + \
-                    "_" + Hour + "-" + Minute + "-" + Second + ".csv"
+                fileName = "Attendance/" + Subject +".csv"
                 attendance = attendance.drop_duplicates(
                     ['Enrollment'], keep='first')
                 print(attendance)
@@ -462,12 +465,13 @@ def subjectchoose():
                 """
                 # Now enter attendance in Database
                 insert_data = "INSERT INTO " + DB_Table_name + \
-                    " (ID,ENROLLMENT,NAME,DATE,TIME) VALUES (0, %s, %s, %s,%s)"
+                    " (ID,ENROLLMENT,NAME,DATE,TIME) VALUES (NULL , %s, %s, %s,%s)"
                 VALUES = (str(Id), str(aa), str(date), str(timeStamp))
                 try:
                     cursor.execute(sql)  # for create a table
                     # For insert data into table
                     cursor.execute(insert_data, VALUES)
+                    connection.commit()
                 except Exception as ex:
                     print(ex)  #
 
@@ -514,7 +518,7 @@ def subjectchoose():
     # def Attf():
     #     import subprocess
     #     subprocess.Popen(
-    #         r'C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\-------Check atttendance-------"')
+    #         r'explorer /select,"C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Attendance\\"')
 
     # attf = tk.Button(windo,  text="Check Sheets", command=Attf, fg="white", bg="black",
     #                  width=12, height=1, activebackground="white", font=('times', 14, ' bold '))
@@ -638,7 +642,7 @@ def trainimg():
 
     recognizer.train(faces, np.array(Id))
     try:
-        recognizer.save("TrainingImageLabel\Trainner.yml")
+        recognizer.save("TrainingImageLabel\\Trainner.yml")
     except Exception as e:
         q = 'Please make "TrainingImageLabel" folder'
         Notification.configure(text=q, bg="SpringGreen3",

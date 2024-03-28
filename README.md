@@ -28,16 +28,13 @@ Attendance Management System based on Face Recognition using Python  and OpenCv
 ### Screenshots
 
 ### Basic UI
-<img src="C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Screenshot (31).png">
-
-### When it Recognises me
-<img src="C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Screenshot%20(33).png">
+<img src="https://github.com/Poorva987/Face-Recognition-Attendance-Management-System/blob/master/Screenshot%20(31).png">
 
 ### While filling automatic attendance
-<img src="C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Screenshot%20(38).png">
+<img src="https://github.com/Poorva987/Face-Recognition-Attendance-Management-System/blob/master/Screenshot%20(38).png">
 
 ### Manually attendance filling UI
-<img src="C:\Users\Poorva Singh\Downloads\Face-Recognition-Attendance-System-main\Screenshot%20(35).png">
+<img src="https://github.com/Poorva987/Face-Recognition-Attendance-Management-System/blob/master/Screenshot%20(35).png">
 
 
 ### Notes
